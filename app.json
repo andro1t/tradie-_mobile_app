@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "tradieplusapp",
     "name": "tradie_plus_mobile_app",
     "slug": "tradie_plus_mobile_app",
     "version": "1.0.0",
@@ -24,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
