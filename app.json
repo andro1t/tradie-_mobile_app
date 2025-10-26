@@ -1,6 +1,7 @@
 {
   "expo": {
     "scheme": "tradieplusapp",
+    "platforms": ["ios", "android"],
     "name": "tradie_plus_mobile_app",
     "slug": "tradie_plus_mobile_app",
     "version": "1.0.0",
@@ -28,6 +29,20 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "env": "development",
+      "apiUrl": "https://dev.api.tradieplus.com",
+      "router": {},
+      "eas": {
+        "projectId": "c4858d54-a710-4795-ab54-700d3b51f671"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c4858d54-a710-4795-ab54-700d3b51f671"
+    }
   }
 }

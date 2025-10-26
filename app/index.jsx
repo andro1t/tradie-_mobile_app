@@ -1,29 +1,34 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { Link } from 'expo-router';
 import React from 'react';
 import Logo from '../assets/images/tradie+.png';
-import Env from '../config/env'; // 👈 import your env file
+import Env from '../config/env'; // import your env file
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 console.log('API URL:', Env.API_URL);
 console.log('Environment:', Env.ENV);
 
 const Home = () => {
   return (
-    <View style={styles.container}>
-      <Image source={Logo} style={styles.Logo} />
+    <View style={styles.container}>     
 
       <View>
         <Text style={[styles.card, { bottom: 50 }]}>Calls</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { top: 25 }]}>Tickets</Text>
+        <Text style={[styles.card, { bottom: 5 }]}>Tickets</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { top: 100 }]}>Reports</Text>
+        <Text style={[styles.card, { top: 35 }]}>Reports</Text>
       </View>
 
-      <Text>Environment: {Env.ENV}</Text>
+      <Text style={{bottom: 585}}>Stage: {Env.ENV}</Text>
+
+      <Link href='/chat' style={styles.chaticon}>
+        <Icon name="comments" size={50} color="#900" />
+      </Link>
     </View>
   );
 };
@@ -37,9 +42,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffeff1',
   },
-  Logo: {
+  tradielogo: {
     position: 'absolute',
-    top: 10,
+    top: 0,
     right: 10,
     marginVertical: 20,
     width: 100,
@@ -54,4 +59,12 @@ const styles = StyleSheet.create({
     height: 150,
     boxShadow: '4px 4px #000000',
   },
+  chaticon: {
+    position: 'absolute',
+    bottom: -10,
+    right: -10,
+    marginVertical: 20,
+    width: 100,
+    height: 100,
+  }
 });
