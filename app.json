@@ -1,7 +1,10 @@
 {
   "expo": {
     "scheme": "tradieplusapp",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "name": "tradie_plus_mobile_app",
     "slug": "tradie_plus_mobile_app",
     "version": "1.0.0",
@@ -22,7 +25,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.aaron_amoin.tradie_plus_mobile_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

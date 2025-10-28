@@ -1,37 +1,38 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Link } from 'expo-router';
-import React from 'react';
-import Logo from '../assets/images/tradie+.png';
-import Env from '../config/env'; // import your env file
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, Text, View, Image } from 'react-native'
+import { Link } from 'expo-router'
+import React from 'react'
+import Env from '../config/env' // import your env file
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-console.log('API URL:', Env.API_URL);
-console.log('Environment:', Env.ENV);
+console.log('API URL:', Env.API_URL)
+console.log('Environment:', Env.ENV)
 
 const Home = () => {
   return (
     <View style={styles.container}>     
 
       <View>
-        <Text style={[styles.card, { bottom: 50 }]}>Calls</Text>
+        <Text style={[styles.card, { bottom: 80 }]}>Calls</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { bottom: 5 }]}>Tickets</Text>
+        <Text style={[styles.card, { bottom: 35 }]}>Tickets</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { top: 35 }]}>Reports</Text>
+        <Text style={[styles.card, { top: 10 }]}>Reports</Text>
       </View>
 
       <Text style={{bottom: 585}}>Stage: {Env.ENV}</Text>
+
+      <Link href='/login'>Login Page</Link>
 
       <Link href='/chat' style={styles.chaticon}>
         <Icon name="comments" size={50} color="#900" />
       </Link>
     </View>
-  );
-};
+  )
+}
 
 export default Home;
 
@@ -67,4 +68,4 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   }
-});
+})
