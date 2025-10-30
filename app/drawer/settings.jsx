@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import React from 'react'
 import Logo from '../assets/images/tradie+.png';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Spacer from '../components/Spacer'
+import Spacer from '../../components/Spacer'
 
 const Settings = () => {
   return (

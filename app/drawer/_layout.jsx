@@ -3,10 +3,10 @@ import { Link, useNavigation } from 'expo-router';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../assets/images/tradie+.png';
-import { Colors } from '../constants/Colors';
+import { Colors } from '../../constants/Colors';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
-import { drawerItems } from '../constants/drawerItems';
+import { drawerItems } from '../../constants/drawerItems';
 
 const RootLayout = () => {
   const theme = Colors.light; // you can still use useColorScheme if you want
