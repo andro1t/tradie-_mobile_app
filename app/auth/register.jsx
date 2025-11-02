@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable, useColorScheme } from 'react-
 import { Link } from 'expo-router';
 import { Colors } from '../../constants/Colors'
 import React from 'react'
-import Logo from '../../assets/images/tradie+.png'
+import Logo from '../../assets/images/tradie_plus_official_logo.png'
 import Spacer from '../../components/Spacer'
 import ThemedTextInput from '../../components/ThemedTextInput'
 
@@ -21,6 +21,7 @@ const Register = () => {
       backgroundColor: theme.background,
     },
     tradieLogo: { 
+      resizeMode: 'contain',
       bottom: 50,   
       width: 200,
       height: 200,
@@ -59,7 +60,7 @@ const Register = () => {
       <Spacer />
       <Text style={{ bottom: 130 }}>
         Already have an account. 
-        <Link href='/login' style={{color: "#008cff"}}>
+        <Link href='/auth/login' style={{color: "#008cff"}}>
           Login Now.
         </Link>
       </Text>

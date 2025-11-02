@@ -12,22 +12,18 @@ const Home = () => {
     <View style={styles.container}>     
 
       <View>
-        <Text style={[styles.card, { bottom: 80 }]}>Calls</Text>
+        <Text style={[styles.card, { bottom: 100 }]}>Calls</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { bottom: 35 }]}>Tickets</Text>
+        <Text style={[styles.card, { bottom: 55 }]}>Tickets</Text>
       </View>
 
       <View>
-        <Text style={[styles.card, { top: 10 }]}>Reports</Text>
+        <Text style={[styles.card, { bottom: 10 }]}>Reports</Text>
       </View>
 
-      <Text style={{bottom: 585}}>Stage: {Env.ENV}</Text>
-
-      <Link href='/login'>Login Page</Link>
-
-      <Link href='/chat' style={styles.chaticon}>
+      <Link href='/drawer/chat' style={styles.chaticon}>
         <Icon name="comments" size={50} color="#900" />
       </Link>
     </View>
