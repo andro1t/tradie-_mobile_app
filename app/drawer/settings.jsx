@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Link } from 'expo-router';
 import React from 'react'
-import Logo from '../assets/images/tradie+.png';
+import Logo from '../../assets/images/tradie_plus_official_logo.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Spacer from '../../components/Spacer'
 
@@ -13,7 +13,7 @@ const Settings = () => {
         <Text style={styles.title}>Settings</Text>
 
         <Spacer />        
-        <Link href='/subscription'>
+        <Link href='/drawer/subscription'>
           <Text>Manage Subscriptions</Text>
         </Link>
 

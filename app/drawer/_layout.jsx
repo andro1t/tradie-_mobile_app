@@ -1,16 +1,15 @@
-import { StyleSheet, TouchableOpacity, Image, View, Text } from 'react-native';
-import { Link, useNavigation } from 'expo-router';
+import { StyleSheet, Image, View, Text } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Logo from '../assets/images/tradie+.png';
+import Logo from '../../assets/images/tradie_plus_official_logo.png';
 import { Colors } from '../../constants/Colors';
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
 import { drawerItems } from '../../constants/drawerItems';
+import { useRouter } from 'expo-router';
 
 const RootLayout = () => {
-  const theme = Colors.light; // you can still use useColorScheme if you want
-  const navigation = useNavigation();
+  const theme = Colors.light;
 
   return (
     <Drawer
@@ -32,19 +31,22 @@ const RootLayout = () => {
 
 /* 🎨 Custom Sidebar Component */
 const CustomDrawerContent = (props) => {
-  const { state, navigation } = props;
-  const currentRoute = state.routeNames[state.index]; // 👈 Get the current active screen name
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // 👇 If you want to clear session later, you can add AsyncStorage.removeItem('user')
+    router.replace('/auth/login'); // ✅ instantly send user back to login screen
+  };
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
       {/* 🔹 App / User Header Section */}
       <View style={styles.drawerHeader}>
         <Image source={Logo} style={styles.drawerLogo} />
-        <Text style={styles.drawerTitle}>Tradie+</Text>
         <Text style={styles.drawerSubtitle}>Welcome back!</Text>
       </View>
 
-      {/* 🔹 Custom Drawer Items */}
+      {/* 🔹 Drawer Items */}
       <View style={{ flex: 1 }}>
         {drawerItems.map((item, index) => (
           <DrawerItem
@@ -59,13 +61,13 @@ const CustomDrawerContent = (props) => {
         ))}
       </View>
 
-      {/* 🔹 Custom Bottom Buttons */}
+      {/* 🔹 Bottom Section */}
       <View style={styles.drawerFooter}>
         <DrawerItem
           label="Logout"
           labelStyle={{ color: 'red' }}
           icon={({ size }) => <Icon name="sign-out" color="red" size={size} />}
-          onPress={() => alert('Logout pressed')}
+          onPress={handleLogout}
         />
       </View>
     </DrawerContentScrollView>
@@ -75,9 +77,6 @@ const CustomDrawerContent = (props) => {
 export default RootLayout;
 
 const styles = StyleSheet.create({
-  logo: {
-    marginRight: 10,
-  },
   drawerHeader: {
     alignItems: 'center',
     paddingVertical: 20,
@@ -88,11 +87,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 30,
     resizeMode: 'contain',
-  },
-  drawerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 8,
   },
   drawerSubtitle: {
     fontSize: 14,
