@@ -1,21 +1,17 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Link } from 'expo-router';
-import React from 'react'
-import Logo from '../../assets/images/tradie_plus_official_logo.png'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { View, Text, Pressable, StyleSheet } from "react-native";
+import { useRouter } from "expo-router"; // ✅ Import this hook
 import Spacer from '../../components/Spacer'
 
 const Settings = () => {
+  const router = useRouter();
   return (
     
     <View style={styles.container}>
 
-        <Text style={styles.title}>Settings</Text>
-
-        <Spacer />        
-        <Link href='/drawer/subscription'>
-          <Text>Manage Subscriptions</Text>
-        </Link>
+        <Pressable onPress={() => router.push("/subscription")}>
+          <Text>Manage Subscription</Text>
+        </Pressable>
 
     </View>
   )
