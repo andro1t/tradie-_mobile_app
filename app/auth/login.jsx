@@ -8,13 +8,14 @@ import {
   Modal,
   Dimensions,
   useColorScheme,
+  ActivityIndicator, // <-- added
 } from "react-native";
 import { useRouter, Link } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Colors } from "../../constants/Colors";
 import ThemedTextInput from "../../components/ThemedTextInput";
 import Spacer from "../../components/Spacer";
-import Logo from "../../assets/images/tradie_plus_official_logo.png";
+import Logo from "../../assets/images/geekify360_logo.png";
 import { UserContext } from "../../context/UserContext";
 
 const { height } = Dimensions.get("window");
@@ -28,6 +29,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showManagedModal, setShowManagedModal] = useState(false);
   const [modalIndex, setModalIndex] = useState(4);
+  const [loading, setLoading] = useState(false); // <-- new loading state
 
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
@@ -58,6 +60,8 @@ const Login = () => {
       bottom: 40,
       width: "100%",
       alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "center",
     },
     pressed: {
       opacity: 0.5,
@@ -134,7 +138,7 @@ const Login = () => {
       color: "red",
       fontSize: 13,
       alignSelf: "flex-start",
-      marginTop: -90, // 👈 aligns under inputs
+      marginTop: -90,
       marginBottom: 80,
     },
   });
@@ -153,9 +157,11 @@ const Login = () => {
 
   const handleSubmit = async () => {
     setErrorMessage("");
+    setLoading(true); // <-- start loading
 
     if (!username.trim() || !password.trim()) {
       setErrorMessage("Please enter both email/username and password.");
+      setLoading(false);
       return;
     }
 
@@ -180,21 +186,26 @@ const Login = () => {
       );
 
       const data = await response.json();
-      console.log("Login response:", data);
 
       if (!response.ok) {
         setErrorMessage(data.message || "Invalid credentials.");
+        setLoading(false);
         return;
       }
 
-      const userObj = data.data.user;
-      const tokenObj = data.data.token;
+      const userObj = data.data?.user || data.user;
+      const tokenObj = data.data?.token || data.token;
 
-      // Save token
+      if (!userObj || !tokenObj) {
+        setErrorMessage("Login succeeded but user data is missing.");
+        setLoading(false);
+        return;
+      }
+
       await AsyncStorage.setItem("accessToken", tokenObj.access_token);
       await AsyncStorage.setItem("tokenType", tokenObj.token_type);
+      await AsyncStorage.setItem("loggedInUserId", String(userObj.id));
 
-      // Save user globally
       saveUser({
         id: userObj.id,
         firstName: userObj.first_name,
@@ -204,16 +215,22 @@ const Login = () => {
         token: tokenObj.access_token,
       });
 
-      console.log("User saved:", userObj);
+      const userSubscriptionKey = `hasSeenSubscription_${userObj.id}`;
+      const hasSeenSubscription = await AsyncStorage.getItem(
+        userSubscriptionKey
+      );
 
-      // Always show subscription modal for now
-      router.push({
-        pathname: "/drawer/home",
-        params: { showSubscription: "1" },
-      });
+      if (!hasSeenSubscription) {
+        await AsyncStorage.setItem(userSubscriptionKey, "true");
+        router.push("/subscription/SubscriptionScreen");
+      } else {
+        router.push("/drawer/home");
+      }
     } catch (error) {
       console.error("Login error:", error);
       setErrorMessage("Unable to connect. Please try again later.");
+    } finally {
+      setLoading(false); // <-- stop loading
     }
   };
 
@@ -228,7 +245,7 @@ const Login = () => {
   };
 
   return (
-    <View style={[styles.container, modalIndex < 4 && { opacity: 0.4 }]}>
+    <View style={[styles.container, modalIndex < 4 ?? { opacity: 0.4 }]}>
       <Spacer />
       <Image source={Logo} style={styles.tradieLogo} />
 
@@ -257,9 +274,17 @@ const Login = () => {
 
       <Pressable
         onPress={handleSubmit}
-        style={({ pressed }) => [styles.btn, pressed && styles.pressed]}
+        disabled={loading} // still disable while loading
+        style={({ pressed }) => [
+          styles.btn,
+          (pressed || loading) && styles.pressed, // dim if pressed or loading
+        ]}
       >
-        <Text style={{ color: "#fff" }}>Sign In</Text>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={{ color: "#fff" }}>Sign In</Text>
+        )}
       </Pressable>
 
       <Text style={{ top: -30 }}>

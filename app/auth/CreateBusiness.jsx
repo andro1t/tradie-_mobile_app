@@ -14,7 +14,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { Colors } from "../../constants/Colors";
-import Logo from "../../assets/images/tradie_plus_official_logo.png";
+import Logo from "../../assets/images/geekify360_logo.png";
 import Spacer from "../../components/Spacer";
 import ThemedTextInput from "../../components/ThemedTextInput";
 

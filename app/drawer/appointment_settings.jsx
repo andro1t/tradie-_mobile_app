@@ -1,13 +1,38 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Switch, Pressable } from "react-native";
 
 const AppointmentSettings = () => {
+  const [notifications, setNotifications] = useState(true);
+  const [remindHour, setRemindHour] = useState(false);
+  const [autoConfirm, setAutoConfirm] = useState(false);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Appointment Settings</Text>
-      <Text style={styles.subtitle}>Configure appointment rules here.</Text>
+      <Text style={styles.subtitle}>Configure your preferences.</Text>
 
-      {/* You can add schedules, toggles, time slots, etc. */}
+      {/* Notification Settings */}
+      <View style={styles.row}>
+        <Text style={styles.label}>Enable Notifications</Text>
+        <Switch value={notifications} onValueChange={setNotifications} />
+      </View>
+
+      <View style={styles.row}>
+        <Text style={styles.label}>Reminder: 1 hour before</Text>
+        <Switch value={remindHour} onValueChange={setRemindHour} />
+      </View>
+
+      {/* Auto Confirm */}
+      <View style={styles.row}>
+        <Text style={styles.label}>Auto-confirm appointments</Text>
+        <Switch value={autoConfirm} onValueChange={setAutoConfirm} />
+      </View>
+
+      {/* Preferred Time - Placeholder buttons */}
+      <Text style={[styles.subtitle, { marginTop: 20 }]}>Preferred Time</Text>
+      <Pressable style={styles.timeBox}>
+        <Text>Select Time Range</Text>
+      </Pressable>
     </View>
   );
 };
@@ -29,5 +54,22 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: "#666",
+    marginTop: 10,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+  },
+  label: {
+    fontSize: 16,
+  },
+  timeBox: {
+    padding: 15,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    marginTop: 10,
+    elevation: 2,
   },
 });

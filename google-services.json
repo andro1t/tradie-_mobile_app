@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747068287990",
+    "project_id": "tradie-plus-mobile-app",
+    "storage_bucket": "tradie-plus-mobile-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747068287990:android:0ee32f8a86be7f7bf335d7",
+        "android_client_info": {
+          "package_name": "com.geekifypeople.geekify360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG1RtnditjuVCsmscrCwSJfx3E2Az8FkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

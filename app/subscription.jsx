@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/Colors";
 import Spacer from "../components/Spacer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
@@ -57,9 +58,23 @@ const Subscription = () => {
   const [cvv, setCvv] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
 
-  const handleSubmit = () => {
-    console.log("Subscription chosen:", data[currentIndex].title);
-    console.log("Card Info:", { cardNumber, expiryDate, cvv, billingAddress });
+  const handleSubmit = async () => {
+    const subscription = {
+      planId: data[currentIndex].id,
+      planName: data[currentIndex].title,
+      description: data[currentIndex].description,
+      cardNumber: cardNumber.slice(-4), // last 4 digits only for safety
+      expiryDate,
+      billingAddress,
+      purchasedAt: new Date().toISOString(),
+    };
+
+    await AsyncStorage.setItem(
+      "USER_SUBSCRIPTION",
+      JSON.stringify(subscription)
+    );
+
+    console.log("Saved subscription:", subscription);
   };
 
   return (
